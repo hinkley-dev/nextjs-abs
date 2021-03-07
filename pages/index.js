@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 
 /**
  * Home page with the route '/'. Contains links to all other pages.
@@ -14,7 +15,10 @@ export default function Home()
 
       <main>
         <h1 className="title">
-          Learn <a href="https://nextjs.org">Next.js!</a>
+          Read{' '}
+          <Link href="/posts/first-post">
+            <a>this page!</a>
+          </Link>
         </h1>
 
         <p className="description">
