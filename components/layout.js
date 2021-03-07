@@ -1,10 +1,10 @@
-
+import styles from './layout.module.css'
 /**
- * Layout component - no functionality yet
+ * Layout component - allows styling to be added to any component when used as a wrappper.
  * 
- * @param {*} children  
+ * @param {*} children - the component or page it is wrapping 
  */
 export default function Layout({ children })
 {
-	return <div>{children}</div>
+	return <div className={styles.container}>{children}</div>
 }
