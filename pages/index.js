@@ -1,6 +1,10 @@
 import Head from 'next/head'
 
-export default function Home() {
+/**
+ * Home page with the route '/'. Contains links to all other pages.
+ */
+export default function Home()
+{
   return (
     <div className="container">
       <Head>
