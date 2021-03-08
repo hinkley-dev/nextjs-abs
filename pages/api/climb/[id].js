@@ -14,20 +14,27 @@ import * as service from '../service/climb-service'
  */
 export default function handler(req, res)
 {
+
+	const id = parseInt(req.query.id)
+	const climb = service.findById(id)
+
 	var notFoundError = { message: "No climb found with Id: " + id }
 	var invalidBodyError = { message: "PUT climb to save is invalid. Required fields = (name, vScale_grade, year_climbed, star_rating)" }
 	var invalidRequestError = { message: "/climb/{id} only allows for PUT or GET requests" }
 
+
 	//if the given ID, does not exist, no operations can be performed
-	const id = parseInt(req.query.id)
-	const climb = service.findById(id)
 	if (!climb)
+	{
 		res.status(404).json(notFoundError)
+		return
+	}
 
 	switch (req.method)
 	{
 		case 'GET':
 			res.status(200).json(climb)
+			break
 
 		case 'PUT':
 			const updatedClimb = service.updateClimb(req.body, id)
