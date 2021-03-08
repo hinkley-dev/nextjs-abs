@@ -14,6 +14,9 @@ import * as service from '../service/climb-service'
  */
 export default function handler(req, res)
 {
+	var invalidBodyError = { message: "POST climb to save is invalid. Required fields = (name, vScale_grade, year_climbed, star_rating)" }
+	var invalidRequestError = { message: "/climb only allows for POST or GET requests" }
+
 	switch (req.method)
 	{
 		case 'GET':
@@ -26,11 +29,11 @@ export default function handler(req, res)
 			if (savedClimb)
 				res.status(200).json(savedClimb)
 			else
-				res.status(400).json()
+				res.status(400).json(invalidBodyError)
 			break
 
 		default:
-			res.status(404).json()
+			res.status(404).json(invalidRequestError)
 			break
 	}
 }

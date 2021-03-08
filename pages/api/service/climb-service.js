@@ -14,6 +14,17 @@ export function findAll()
 }
 
 /**
+ * Find the climb with the given ID and return it.
+ * If climb does not exist, return undefined.
+ * 
+ * @param {*} _id - ID of the climb
+ */
+export function findById(_id)
+{
+	return _.findWhere(climbingData, { id: parseInt(_id) })
+}
+
+/**
  * Validated the input and then assigns it a new UID as it is saved.
  * The newly saved climb (with new UID) is returned.
  * (No saving be done. Ideally this saves to a realtional table which generated the UID)
@@ -22,7 +33,7 @@ export function findAll()
  */
 export function save(newClimb)
 {
-	let valid = validateNewClimb(newClimb)
+	let valid = validateClimb(newClimb)
 	if (!valid) return false
 
 	//this will be done by MySQL
@@ -34,6 +45,23 @@ export function save(newClimb)
 	//save new data here
 
 	return newClimb
+}
+
+export function updateClimb(climb, id)
+{
+	if (!validateClimb(climb))
+		return false
+
+	//update the value in the json
+	var updateClimb = _.find(climbingData, function (climb)
+	{
+		return climb.id = id
+	})
+	var updateClimb = climb
+
+	//Ensure the Id doesn't change. (Even though this isn't actually being updated anywhere)
+	updateClimb.id = id
+	return updateClimb
 
 }
 
@@ -42,10 +70,10 @@ export function save(newClimb)
  * Validate the input before saving the new instance.
  * (No real validation right now, just checking that it has some keys)
  * 
- * @param {*} newClimb - the new climb to be validated before being saved 
+ * @param {*} climb - the climb to be validated before being saved 
  */
-function validateNewClimb(newClimb)
+function validateClimb(climb)
 {
-	var keys = _.allKeys(newClimb)
+	var keys = _.allKeys(climb)
 	return (_.contains(keys, 'name') && _.contains(keys, 'vScale_grade') && _.contains(keys, 'year_climbed') && _.contains(keys, 'star_rating'))
 }
