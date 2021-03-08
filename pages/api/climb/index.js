@@ -20,6 +20,7 @@ export default function handler(req, res)
 			const data = service.findAll()
 			res.status(200).json(data)
 			break
+
 		case 'POST':
 			const savedClimb = service.save(req.body)
 			if (savedClimb)
@@ -27,6 +28,7 @@ export default function handler(req, res)
 			else
 				res.status(400).json()
 			break
+
 		default:
 			res.status(404).json()
 			break
